@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForenseLab - TCC Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#0a0a0a',
+                            dark: '#111111',
+                            gray: '#1f1f1f',
+                            green: '#00ff9d',
+                            blue: '#00ccff',
+                            purple: '#bd00ff',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'typewriter': 'typewriter 2s steps(40) 1s 1 normal both',
+                    },
+                    keyframes: {
+                        typewriter: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cyber-black text-white font-sans overflow-hidden h-screen w-screen selection:bg-cyber-green selection:text-black">
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-20">
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(0,255,157,0.1),transparent_50%)]">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_rgba(0,204,255,0.1),transparent_50%)]">
+        </div>
+    </div>
+
+    <div class="fixed top-0 left-0 h-1 bg-cyber-gray z-50 w-full">
+        <div id="progress"
+            class="h-full bg-gradient-to-r from-cyber-green to-cyber-blue w-0 transition-all duration-300"></div>
+    </div>
+
+    <div class="fixed bottom-8 right-8 z-50 flex gap-4">
+        <button onclick="prevSlide()"
+            class="p-3 bg-cyber-gray border border-gray-700 rounded-full hover:border-cyber-green hover:text-cyber-green transition-all focus:outline-none shadow-lg shadow-black/50 active:scale-95">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <span id="slide-number"
+            class="self-center font-mono text-gray-500 bg-black/50 px-3 py-1 rounded-full border border-gray-800 backdrop-blur-sm select-none">01
+            / 17</span>
+        <button onclick="nextSlide()"
+            class="p-3 bg-cyber-gray border border-gray-700 rounded-full hover:border-cyber-green hover:text-cyber-green transition-all focus:outline-none shadow-lg shadow-black/50 active:scale-95">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <main id="slider-container"
+        class="relative w-full h-full z-10 flex items-center justify-center p-4 md:p-8 overflow-y-auto overflow-x-hidden">
+        <section
+            class="slide active w-full h-full min-h-0 flex flex-col items-center justify-center text-center space-y-6 md:space-y-10"
+            data-id="1">
+            <div
+                class="mb-2 inline-block px-4 py-1 rounded-full border border-cyber-green/30 bg-cyber-green/10 text-cyber-green font-mono text-xs md:text-sm">
+                v1.0.0 RELEASE
+            </div>
+            <h1
+                class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-cyber-green via-cyber-blue to-cyber-purple leading-tight">
+                FORENSE<br>LAB
+            </h1>
+            <h2 class="text-lg md:text-2xl text-gray-400 font-light max-w-4xl px-4">
+                Desenvolvimento de um Toolkit Modular para<br class="hidden md:block">Análise Forense Digital via Linha
+                de Comando
+            </h2>
+
+            <div
+                class="mt-8 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left border-t border-gray-800 pt-8 w-full max-w-3xl mx-auto px-4">
+                <div class="text-center md:text-left">
+                    <p class="text-gray-500 text-xs font-mono uppercase tracking-widest">Autor</p>
+                    <p class="text-lg md:text-xl font-bold">Erick Gabriel (ErickG123)</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-xs font-mono uppercase tracking-widest">Orientador</p>
+                    <p class="text-lg md:text-xl font-bold">Prof. Me. José Antônio Gallo Junior</p>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4 md:px-16"
+            data-id="2">
+            <div class="flex flex-col justify-center h-full">
+                <h2 class="text-4xl md:text-5xl font-bold text-cyber-blue mb-8">Sumário</h2>
+                <ul class="space-y-3 md:space-y-4 text-base md:text-xl">
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(3)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">01</span> Contextualização e
+                        Problema
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(4)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">02</span> A Solução:
+                        ForenseLab
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(5)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">03</span> Tecnologias e
+                        Ferramentas
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(6)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">04</span> Módulos e Funções
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(8)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">05</span> Estrutura do Código
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(9)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">06</span> Demonstrações (CLI)
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(15)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">07</span> Ecossistema &
+                        DevOps
+                    </li>
+                    <li class="flex items-center gap-4 group cursor-pointer hover:text-cyber-green transition-colors"
+                        onclick="goToSlide(16)">
+                        <span class="font-mono text-gray-600 group-hover:text-cyber-green">08</span> Conclusão
+                    </li>
+                </ul>
+            </div>
+            <div
+                class="hidden md:flex relative h-3/4 w-full items-center justify-center p-8 bg-cyber-gray/30 rounded-2xl border border-gray-800 font-mono text-base text-gray-300 overflow-hidden">
+                <pre class="leading-relaxed z-10">
+<span class="text-cyber-blue font-bold">.</span>
+├── <span class="text-cyber-green font-bold">core/</span>          <span class="text-gray-500 italic"># Núcleo (Gerenciador)</span>
+├── <span class="text-cyber-green font-bold">modules/</span>       <span class="text-gray-500 italic"># Plugins (Extensões)</span>
+│   ├── <span class="text-purple-400">browser/</span>   <span class="text-gray-600 italic"># Análise Web</span>
+│   ├── <span class="text-purple-400">network/</span>   <span class="text-gray-600 italic"># Reconhecimento</span>
+│   └── <span class="text-purple-400">email/</span>     <span class="text-gray-600 italic"># Análise Header</span>
+├── <span class="text-cyber-green font-bold">docs/</span>          <span class="text-gray-500 italic"># Documentação (SPA)</span>
+├── <span class="text-cyber-green font-bold">tests/</span>         <span class="text-gray-500 italic"># Testes (Pytest)</span>
+└── <span class="text-blue-400">README.md</span>      <span class="text-gray-500 italic"># Guia de Uso</span>
+                </pre>
+                <div class="absolute inset-0 bg-gradient-to-t from-cyber-black/80 to-transparent pointer-events-none">
+                </div>
+                <div class="absolute bottom-8 left-8 z-20">
+                    <p class="font-mono text-cyber-green text-sm">> structure.tree</p>
+                    <p class="text-gray-500 text-xs mt-1">Estrutura do Monorepositório</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col justify-center px-4 md:px-16" data-id="3">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 flex items-center gap-4">
+                <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+                O Cenário Atual
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full flex-1 max-h-[70vh]">
+                <div
+                    class="bg-cyber-gray border border-gray-700 p-6 md:p-8 rounded-xl hover:border-red-500 transition-colors group flex flex-col justify-center h-full">
+                    <div
+                        class="text-4xl md:text-5xl text-gray-600 group-hover:text-red-500 mb-4 md:mb-8 transition-colors">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4 leading-tight">Custo Elevado</h3>
+                    <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                        Ferramentas líderes (EnCase, FTK) possuem licenças proibitivas para estudantes.
+                    </p>
+                </div>
+                <div
+                    class="bg-cyber-gray border border-gray-700 p-6 md:p-8 rounded-xl hover:border-yellow-500 transition-colors group flex flex-col justify-center h-full">
+                    <div
+                        class="text-4xl md:text-5xl text-gray-600 group-hover:text-yellow-500 mb-4 md:mb-8 transition-colors">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4 leading-tight">Curva de Aprendizado</h3>
+                    <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                        Soluções Open Source (Autopsy) são poderosas, mas complexas demais para o início.
+                    </p>
+                </div>
+                <div
+                    class="bg-cyber-gray border border-gray-700 p-6 md:p-8 rounded-xl hover:border-blue-500 transition-colors group flex flex-col justify-center h-full">
+                    <div
+                        class="text-4xl md:text-5xl text-gray-600 group-hover:text-blue-500 mb-4 md:mb-8 transition-colors">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4 leading-tight">Falta de Abstração</h3>
+                    <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                        Falta de ferramentas focadas puramente na didática via CLI.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4 md:px-16"
+            data-id="4">
+            <div class="order-2 md:order-1">
+                <div class="flex items-center gap-3 mb-4 md:mb-6">
+                    <span
+                        class="px-3 py-1 text-[10px] md:text-xs font-mono bg-cyber-green text-black rounded font-bold">OPEN
+                        SOURCE</span>
+                    <span
+                        class="px-3 py-1 text-[10px] md:text-xs font-mono bg-blue-600 text-white rounded font-bold">MIT
+                        LICENSE</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-8">Devkit Forense</h2>
+                <p class="text-lg md:text-2xl text-gray-400 leading-relaxed mb-6 md:mb-10">
+                    Um toolkit <strong>modular</strong> e <strong>extensível</strong>, desenvolvido para democratizar o
+                    ensino de forense digital através de uma CLI intuitiva.
+                </p>
+                <ul class="space-y-3 md:space-y-6 font-mono text-base md:text-lg text-gray-300">
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-check text-cyber-green text-xl"></i> 100% Python
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-check text-cyber-green text-xl"></i> Arquitetura de Plugins
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-check text-cyber-green text-xl"></i> Foco em Automação
+                    </li>
+                </ul>
+            </div>
+            <div
+                class="order-1 md:order-2 bg-[#1e1e1e] rounded-lg shadow-2xl overflow-hidden border border-gray-700 font-mono text-xs md:text-base w-full max-w-2xl justify-self-center self-center">
+                <div class="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-2 text-gray-400 text-xs">user@terminal:~</span>
+                </div>
+                <div class="p-4 md:p-8 text-gray-300 space-y-3">
+                    <p><span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span
+                            class="cmd">forensic-cli</span> <span class="flag">--help</span></p>
+                    <p class="text-gray-400">Usage: forensic-cli [OPTIONS] COMMAND...</p>
+                    <p class="text-yellow-400">Commands:</p>
+                    <p> <span class="text-green-400">browser</span> Análise de navegadores.</p>
+                    <p> <span class="text-green-400">network</span> Reconhecimento de rede.</p>
+                    <p> <span class="text-green-400">system</span> Infos do sistema.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="5">
+            <h2 class="text-3xl md:text-5xl font-bold mb-10 md:mb-20 text-center">Stack Tecnológica</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 w-full max-w-7xl">
+                <div
+                    class="flex flex-col items-center p-6 md:p-10 bg-cyber-gray/50 rounded-xl border border-gray-800 hover:border-cyber-blue transition-all transform hover:-translate-y-2 group">
+                    <i
+                        class="fa-brands fa-python text-5xl md:text-7xl text-gray-600 group-hover:text-yellow-400 mb-4 md:mb-6 transition-colors"></i>
+                    <h3 class="font-bold text-lg md:text-2xl">Python 3.11+</h3>
+                    <p class="text-center text-gray-500 mt-2 text-sm md:text-base">Core Language</p>
+                </div>
+                <div
+                    class="flex flex-col items-center p-6 md:p-10 bg-cyber-gray/50 rounded-xl border border-gray-800 hover:border-cyber-blue transition-all transform hover:-translate-y-2 group">
+                    <i
+                        class="fa-solid fa-terminal text-5xl md:text-7xl text-gray-600 group-hover:text-gray-200 mb-4 md:mb-6 transition-colors"></i>
+                    <h3 class="font-bold text-lg md:text-2xl">Typer</h3>
+                    <p class="text-center text-gray-500 mt-2 text-sm md:text-base">CLI Building</p>
+                </div>
+                <div
+                    class="flex flex-col items-center p-6 md:p-10 bg-cyber-gray/50 rounded-xl border border-gray-800 hover:border-cyber-blue transition-all transform hover:-translate-y-2 group">
+                    <i
+                        class="fa-solid fa-palette text-5xl md:text-7xl text-gray-600 group-hover:text-pink-500 mb-4 md:mb-6 transition-colors"></i>
+                    <h3 class="font-bold text-lg md:text-2xl">Rich</h3>
+                    <p class="text-center text-gray-500 mt-2 text-sm md:text-base">Beautiful Output</p>
+                </div>
+                <div
+                    class="flex flex-col items-center p-6 md:p-10 bg-cyber-gray/50 rounded-xl border border-gray-800 hover:border-cyber-blue transition-all transform hover:-translate-y-2 group">
+                    <i
+                        class="fa-solid fa-box-open text-5xl md:text-7xl text-gray-600 group-hover:text-blue-400 mb-4 md:mb-6 transition-colors"></i>
+                    <h3 class="font-bold text-lg md:text-2xl">Poetry</h3>
+                    <p class="text-center text-gray-500 mt-2 text-sm md:text-base">Dep. Management</p>
+                </div>
+            </div>
+            <div
+                class="mt-10 md:mt-20 p-4 md:p-8 border border-dashed border-gray-700 rounded-xl w-full max-w-4xl text-center">
+                <p class="text-gray-400 font-mono text-sm md:text-lg">Outras libs: <span class="text-white">Pytest,
+                        Pandas, Scapy, SQLite3</span></p>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col justify-center px-4 md:px-16" data-id="6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-16 border-l-8 border-cyber-green pl-6 md:pl-8">Módulos
+                Implementados</h2>
+            <div class="grid grid-cols-1 gap-4 md:gap-8 w-full max-w-6xl mx-auto overflow-y-auto max-h-[70vh] pr-2">
+                <div
+                    class="flex flex-col md:flex-row items-start gap-4 md:gap-8 bg-cyber-gray p-6 md:p-8 rounded-lg border-l-4 border-blue-500 hover:bg-gray-800 transition-colors">
+                    <div
+                        class="bg-blue-500/10 p-4 md:p-6 rounded-full text-blue-400 shrink-0 self-center md:self-start">
+                        <i class="fa-solid fa-globe text-2xl md:text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">browser_forensics
+                        </h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                            Analisa artefatos de navegadores baseados em Chromium e Firefox (Histórico, Downloads,
+                            Cookies).
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row items-start gap-4 md:gap-8 bg-cyber-gray p-6 md:p-8 rounded-lg border-l-4 border-purple-500 hover:bg-gray-800 transition-colors">
+                    <div
+                        class="bg-purple-500/10 p-4 md:p-6 rounded-full text-purple-400 shrink-0 self-center md:self-start">
+                        <i class="fa-solid fa-network-wired text-2xl md:text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">network_recon</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                            Realiza varreduras ativas e passivas na rede (Port Scan, Discovery, Service ID).
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row items-start gap-4 md:gap-8 bg-cyber-gray p-6 md:p-8 rounded-lg border-l-4 border-green-500 hover:bg-gray-800 transition-colors">
+                    <div
+                        class="bg-green-500/10 p-4 md:p-6 rounded-full text-green-400 shrink-0 self-center md:self-start">
+                        <i class="fa-solid fa-envelope text-2xl md:text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">mail_analyzer</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
+                            Processa e-mails para identificar origem e analisar metadados (SPF, DKIM, IP Origem).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col justify-center px-4 md:px-16" data-id="7">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 border-l-8 border-yellow-500 pl-6 md:pl-8">
+                Funções por Módulo
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl">
+                <div class="bg-cyber-gray p-6 rounded-xl border border-blue-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-globe text-blue-400"></i>
+                        <h3 class="text-xl font-bold text-blue-400 font-mono">browser</h3>
+                    </div>
+                    <ul class="space-y-4 font-mono text-sm text-gray-300">
+                        <li><span class="text-green-400 font-bold block">get_history</span>Extrai URLs visitadas e
+                            timestamps.</li>
+                        <li><span class="text-green-400 font-bold block">get_downloads</span>Lista histórico de arquivos
+                            baixados.</li>
+                        <li><span class="text-green-400 font-bold block">get_cookies</span>Extrai cookies de sessão.
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-cyber-gray p-6 rounded-xl border border-purple-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-network-wired text-purple-400"></i>
+                        <h3 class="text-xl font-bold text-purple-400 font-mono">network</h3>
+                    </div>
+                    <ul class="space-y-4 font-mono text-sm text-gray-300">
+                        <li><span class="text-green-400 font-bold block">scan_ports</span>Verifica portas abertas em um
+                            alvo.</li>
+                        <li><span class="text-green-400 font-bold block">network_map</span>Identifica hosts ativos na
+                            rede local.</li>
+                        <li><span class="text-green-400 font-bold block">fingerprint</span>Detecta SO e serviços.</li>
+                    </ul>
+                </div>
+                <div class="bg-cyber-gray p-6 rounded-xl border border-green-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-envelope text-green-400"></i>
+                        <h3 class="text-xl font-bold text-green-400 font-mono">email</h3>
+                    </div>
+                    <ul class="space-y-4 font-mono text-sm text-gray-300">
+                        <li><span class="text-green-400 font-bold block">parse_header</span>Extrai metadados (From, To,
+                            IP).</li>
+                        <li><span class="text-green-400 font-bold block">analyze_auth</span>Valida registros SPF e DKIM.
+                        </li>
+                        <li><span class="text-green-400 font-bold block">extract_body</span>Separa o corpo da mensagem.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-4 md:px-16 items-center"
+            data-id="8">
+            <div class="flex flex-col justify-center h-full order-2 md:order-1">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Estrutura do Código</h2>
+                <p class="text-gray-400 mb-6 md:mb-10 text-lg md:text-xl leading-relaxed">
+                    O projeto segue o padrão <strong>Command Pattern</strong> utilizando Typer. Cada módulo é um
+                    subcomando isolado.
+                </p>
+                <div class="bg-cyber-gray/50 p-6 md:p-8 rounded-xl border border-gray-700">
+                    <h4 class="font-bold text-white mb-4 md:mb-6 text-lg md:text-xl"><i
+                            class="fa-solid fa-folder-tree mr-3"></i>Pastas</h4>
+                    <pre class="font-mono text-sm md:text-base text-gray-300 leading-relaxed">
+devkit_forense/
+├── core/
+├── modules/
+│   ├── browser/
+│   ├── network/
+│   └── system/
+├── main.py
+├── pyproject.toml
+└── README.md
+                    </pre>
+                </div>
+            </div>
+            <div
+                class="order-1 md:order-2 relative bg-[#1e1e1e] rounded-xl shadow-2xl border border-gray-700 overflow-hidden w-full max-w-2xl justify-self-center">
+                <div
+                    class="absolute top-0 left-0 w-full h-8 md:h-10 bg-[#2d2d2d] border-b border-gray-700 flex items-center px-4">
+                    <span class="text-xs md:text-sm text-gray-500 font-mono">main.py</span>
+                </div>
+                <div class="p-6 md:p-8 pt-12 md:pt-16 font-mono text-xs md:text-base overflow-x-auto">
+                    <pre><code class="language-python">
+<span class="text-purple-400">import</span> typer
+<span class="text-purple-400">from</span> modules.network <span class="text-purple-400">import</span> network_app
+
+app = typer.<span class="text-yellow-300">Typer</span>(
+    name=<span class="text-green-300">"forensic-cli"</span>,
+    help=<span class="text-green-300">"Toolkit modular."</span>
+)
+
+<span class="comment"># Registro de Subcomandos</span>
+app.<span class="text-yellow-300">add_typer</span>(network_app, name=<span class="text-green-300">"network"</span>)
+
+<span class="text-purple-400">if</span> __name__ == <span class="text-green-300">"__main__"</span>:
+    app()
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="9">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">Execução: Módulo de Rede</h2>
+
+            <div
+                class="w-full max-w-6xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-lg overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="text-gray-400 text-xs md:text-sm">user@terminal: ~/cases/case_001</div>
+                    <div></div>
+                </div>
+                <div class="p-4 md:p-8 text-gray-200 min-h-[300px] md:min-h-[500px]">
+                    <div class="mb-4 md:mb-6">
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        <span class="cmd type-writer-text">forensic-cli network scan --target 192.168.1.105</span>
+                    </div>
+                    <div class="ml-2 md:ml-4 border-l-2 border-gray-700 pl-4 md:pl-6 mb-8">
+                        <p class="text-blue-400 font-bold mb-2">[*] Iniciando Network Scanner...</p>
+                        <p>[+] Target: 192.168.1.105</p>
+                        <div class="grid grid-cols-3 gap-4 md:gap-8 w-full md:w-2/3 mb-6 mt-4">
+                            <span class="text-gray-500 font-bold border-b border-gray-700 pb-1">PORT</span>
+                            <span class="text-gray-500 font-bold border-b border-gray-700 pb-1">STATE</span>
+                            <span class="text-gray-500 font-bold border-b border-gray-700 pb-1">SERVICE</span>
+                            <span>22/tcp</span><span class="text-green-500">OPEN</span><span>ssh</span>
+                            <span>80/tcp</span><span class="text-green-500">OPEN</span><span>http</span>
+                            <span>3306/tcp</span><span class="text-red-500">FILTERED</span><span>mysql</span>
+                        </div>
+                        <p class="text-yellow-500 mb-2">[!] Alerta: Porta 80 rodando Apache 2.4.41</p>
+                        <p class="text-green-400 font-bold">[✓] Scan concluído.</p>
+                    </div>
+                    <div>
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span
+                            class="cursor-blink">_</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Interatividade e Descoberta</h2>
+            <div
+                class="w-full max-w-5xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-base overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-500">Ajuda Geral</span>
+                    <span></span>
+                </div>
+                <div class="p-6 md:p-10 text-gray-300">
+                    <p class="mb-4"><span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        forensic-cli <span class="flag">--help</span></p>
+                    <p>Usage: forensic-cli [OPTIONS] COMMAND [ARGS]...</p>
+                    <br>
+                    <p class="text-yellow-400">Options:</p>
+                    <p class="pl-4"><span class="text-cyan-400">--install-completion</span> Install completion for the
+                        current shell.</p>
+                    <p class="pl-4"><span class="text-cyan-400">--help</span> Show this message and exit.</p>
+                    <br>
+                    <p class="text-yellow-400">Commands:</p>
+                    <div class="grid grid-cols-[100px_1fr] gap-4 pl-4">
+                        <span class="text-green-400 font-bold">browser</span>
+                        <span>Ferramentas para coleta e análise de dados de navegadores</span>
+
+                        <span class="text-green-400 font-bold">network</span>
+                        <span>Ferramentas para análise e operações em redes</span>
+
+                        <span class="text-green-400 font-bold">email</span>
+                        <span>Ferramentas para análise e manipulação de e-mails</span>
+
+                        <span class="text-green-400 font-bold">describe</span>
+                        <span>Explicações detalhadas sobre as funcionalidades</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="11">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Documentação Integrada (Describe)</h2>
+            <div
+                class="w-full max-w-5xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-base overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-500">Detalhe da Função</span>
+                    <span></span>
+                </div>
+                <div class="p-6 md:p-10 text-gray-300">
+                    <p class="mb-4"><span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        forensic-cli describe func map</p>
+
+                    <div class="border-l-4 border-cyber-blue pl-4 mb-4">
+                        <p><span class="font-bold text-white">Nome da Função:</span> <span
+                                class="text-green-400">map</span> / run_network_map</p>
+                        <p class="mt-2"><span class="font-bold text-white">Descrição:</span> Retorna informações
+                            detalhadas de cada host da rede.</p>
+                    </div>
+
+                    <p class="text-gray-500 mb-2">// Exemplo de Retorno (JSON)</p>
+                    <pre class="text-cyan-300">
+{
+  <span class="string">"host"</span>: <span class="string">"192.168.1.1"</span>,
+  <span class="string">"hostname"</span>: <span class="string">"router-gateway"</span>,
+  <span class="string">"mac"</span>: <span class="string">"AA:BB:CC:DD:EE:FF"</span>,
+  <span class="string">"vendor"</span>: <span class="string">"Cisco Systems"</span>,
+  <span class="string">"open_ports"</span>: [
+    22,
+    80,
+    443
+  ]
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-purple-400">Exemplo: Network Fingerprinting
+            </h2>
+            <div
+                class="w-full max-w-5xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-base overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-500">Scan Avançado</span>
+                </div>
+                <div class="p-6 md:p-10 text-gray-300">
+                    <div class="mb-4">
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        <span class="cmd">forensic-cli network fingerprinting --target 192.168.1.50</span>
+                    </div>
+                    <div class="ml-4 border-l-2 border-purple-500 pl-4 mb-4">
+                        <p class="text-blue-400 font-bold mb-2">[*] Iniciando detecção de SO e Serviços...</p>
+                        <p>[+] Target: 192.168.1.50</p>
+                        <p>[+] MAC Address: 00:1A:2B:3C:4D:5E (Virtual Machine)</p>
+                        <br>
+                        <p class="text-yellow-400 font-bold">OS Detection:</p>
+                        <p class="ml-4">Linux Kernel 5.4 (Ubuntu 20.04 LTS) - Accuracy: 98%</p>
+                        <br>
+                        <p class="text-yellow-400 font-bold">Open Ports & Services:</p>
+                        <div class="grid grid-cols-[80px_150px_1fr] gap-2 ml-4">
+                            <span class="text-gray-500">PORT</span><span class="text-gray-500">SERVICE</span><span
+                                class="text-gray-500">VERSION</span>
+                            <span>22/tcp</span><span class="text-green-400">ssh</span><span>OpenSSH 8.2p1 Ubuntu</span>
+                            <span>80/tcp</span><span class="text-green-400">http</span><span>Apache httpd 2.4.41</span>
+                            <span>3306/tcp</span><span class="text-green-400">mysql</span><span>MySQL 8.0.28</span>
+                        </div>
+                    </div>
+                    <p class="text-green-400 font-bold">[✓] Fingerprinting concluído.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="13">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-blue-400">Exemplo: Browser Logins</h2>
+            <div
+                class="w-full max-w-5xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-base overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-500">Extração de Credenciais</span>
+                </div>
+                <div class="p-6 md:p-10 text-gray-300">
+                    <div class="mb-4">
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        <span class="cmd">forensic-cli browser logins --profile "Default"</span>
+                    </div>
+                    <div class="ml-4 border-l-2 border-blue-500 pl-4 mb-4">
+                        <p class="text-blue-400 font-bold mb-2">[*] Acessando Login Data (Google Chrome)...</p>
+                        <p>[!] Atenção: Dados sensíveis extraídos.</p>
+                        <br>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-gray-500 border-b border-gray-700">
+                                    <th class="pb-2">URL</th>
+                                    <th class="pb-2">USERNAME</th>
+                                    <th class="pb-2">PASSWORD</th>
+                                    <th class="pb-2">CREATED</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2 text-cyan-300">facebook.com</td>
+                                    <td>admin@mail.com</td>
+                                    <td class="text-red-400">[ENCRYPTED]</td>
+                                    <td>2024-10-15</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 text-cyan-300">github.com</td>
+                                    <td>dev_user</td>
+                                    <td class="text-red-400">[ENCRYPTED]</td>
+                                    <td>2024-11-02</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 text-cyan-300">aws.amazon.com</td>
+                                    <td>root_account</td>
+                                    <td class="text-red-400">[ENCRYPTED]</td>
+                                    <td>2024-12-01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-green-400 font-bold">[✓] 14 credenciais encontradas. Exportado para logins.json</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center px-4 md:px-16"
+            data-id="14">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-blue-400">Exemplo: Browser History</h2>
+            <div
+                class="w-full max-w-5xl bg-black rounded-lg shadow-2xl border border-gray-700 font-mono text-xs md:text-base overflow-hidden relative">
+                <div class="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-500">Histórico de Navegação</span>
+                </div>
+                <div class="p-6 md:p-10 text-gray-300">
+                    <div class="mb-4">
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span>
+                        <span class="cmd">forensic-cli browser history --limit 5</span>
+                    </div>
+                    <div class="ml-4 border-l-2 border-blue-500 pl-4 mb-4">
+                        <p class="text-blue-400 font-bold mb-2">[*] Lendo histórico recente...</p>
+                        <br>
+                        <div class="space-y-2">
+                            <div class="flex gap-4 border-b border-gray-800 pb-1">
+                                <span class="text-gray-500 w-32">2025-02-10 14:30</span>
+                                <span class="text-white flex-1 truncate">Stack Overflow - Python SQLite Error</span>
+                                <span class="text-cyan-500 text-xs px-2 py-0.5 bg-cyan-900/30 rounded">DEV</span>
+                            </div>
+                            <div class="flex gap-4 border-b border-gray-800 pb-1">
+                                <span class="text-gray-500 w-32">2025-02-10 14:45</span>
+                                <span class="text-white flex-1 truncate">Gmail - Inbox (3)</span>
+                                <span class="text-yellow-500 text-xs px-2 py-0.5 bg-yellow-900/30 rounded">MAIL</span>
+                            </div>
+                            <div class="flex gap-4 border-b border-gray-800 pb-1">
+                                <span class="text-gray-500 w-32">2025-02-10 15:10</span>
+                                <span class="text-white flex-1 truncate">GitHub - ErickG123/devkit_forense</span>
+                                <span class="text-purple-500 text-xs px-2 py-0.5 bg-purple-900/30 rounded">GIT</span>
+                            </div>
+                            <div class="flex gap-4 border-b border-gray-800 pb-1">
+                                <span class="text-gray-500 w-32">2025-02-10 15:15</span>
+                                <span class="text-white flex-1 truncate">PyPI - forensic-cli project page</span>
+                                <span class="text-blue-500 text-xs px-2 py-0.5 bg-blue-900/30 rounded">PKG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-green-400 font-bold">[✓] Query finalizada.</p>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4 md:px-16"
+            data-id="15">
+            <div class="flex flex-col justify-center h-full order-2 md:order-1">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12">DevOps & Ecossistema</h2>
+                <div class="space-y-6 md:space-y-10">
+                    <div class="group">
+                        <h3 class="text-xl md:text-3xl font-bold text-white flex items-center gap-4">
+                            <i class="fa-brands fa-github text-gray-400"></i> GitHub Actions
+                        </h3>
+                        <p class="text-gray-400 mt-2 md:mt-3 text-sm md:text-lg">
+                            Pipeline automatizado. Push na `main` -> Testes -> Build -> PyPI.
+                        </p>
+                        <div class="mt-4 flex gap-4">
+                            <img src="https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge"
+                                alt="Build Passing" class="h-6 md:h-10">
+                            <img src="https://img.shields.io/badge/tests-100%25-brightgreen?style=for-the-badge"
+                                alt="Tests Passed" class="h-6 md:h-10">
+                        </div>
+                    </div>
+
+            
+                    <div class="group">
+                        <h3 class="text-xl md:text-3xl font-bold text-white flex items-center gap-4">
+                            <i class="fa-brands fa-python text-yellow-400"></i> PyPI Publication
+                        </h3>
+                        <div
+                            class="bg-gray-800 p-3 md:p-4 rounded mt-4 font-mono text-sm md:text-base flex justify-between items-center border border-gray-700 w-full max-w-md">
+                            <span>pip install forensic-cli</span>
+                            <i class="fa-regular fa-copy cursor-pointer hover:text-white"></i>
+                        </div>
+                        <a href="https://pypi.org/project/forensic-cli/" target="_blank"
+                            class="text-xs text-yellow-500/70 hover:text-yellow-400 mt-2 block font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-external-link-alt"></i> pypi.org/project/forensic-cli
+                        </a>
+                    </div>
+
+            
+                    <div class="group">
+                        <h3 class="text-xl md:text-3xl font-bold text-white flex items-center gap-4">
+                            <i class="fa-solid fa-book text-blue-400"></i> Documentação SPA
+                        </h3>
+                        <p class="text-gray-400 mt-2 md:mt-3 text-sm md:text-lg">
+                            Site (<a href="https://forensiclab-spa.vercel.app/" target="_blank"
+                                class="text-blue-400 hover:text-blue-300 underline decoration-dotted">forensiclab-spa.vercel.app</a>)
+                            em Next.js para documentação.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="order-1 md:order-2 relative h-full flex flex-col justify-center items-center gap-4 md:gap-8 border-l border-dashed border-gray-800 pl-6 md:pl-12">
+                <div class="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-600 w-64 md:w-80 text-center relative">
+                    <span class="absolute -left-3 top-1/2 w-3 h-[2px] bg-gray-600"></span>
+                    <i class="fa-solid fa-code-commit text-purple-400 mb-2 md:mb-3 text-xl md:text-2xl"></i>
+                    <p class="font-bold text-lg md:text-xl">Push to Main</p>
+                </div>
+                <div class="h-8 md:h-12 w-[2px] bg-gray-600"></div>
+                <div
+                    class="bg-gray-800 p-4 md:p-6 rounded-lg border border-yellow-500 w-64 md:w-80 text-center relative shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                    <i class="fa-solid fa-vial text-yellow-500 mb-2 md:mb-3 text-xl md:text-2xl"></i>
+                    <p class="font-bold text-lg md:text-xl">Run Pytest</p>
+                </div>
+                <div class="h-8 md:h-12 w-[2px] bg-gray-600"></div>
+                <div
+                    class="bg-gray-800 p-4 md:p-6 rounded-lg border border-green-500 w-64 md:w-80 text-center relative shadow-[0_0_20px_rgba(34,197,94,0.2)]">
+                    <i class="fa-solid fa-cloud-arrow-up text-green-500 mb-2 md:mb-3 text-xl md:text-2xl"></i>
+                    <p class="font-bold text-lg md:text-xl">Publish to PyPI</p>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="slide w-full h-full min-h-0 flex flex-col items-center justify-center text-center space-y-8 md:space-y-16 px-4 md:px-16"
+            data-id="16">
+            <h2 class="text-4xl md:text-6xl font-bold text-cyber-green">Conclusão</h2>
+            <p class="text-xl md:text-3xl text-gray-300 leading-relaxed max-w-6xl">
+                O <strong>ForenseLab</strong> atinge seu objetivo de reduzir a barreira de entrada na computação
+                forense, abstraindo a complexidade para focar na <span
+                    class="text-white font-bold underline decoration-cyber-blue">metodologia investigativa.</span>
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 w-full max-w-6xl mt-8 md:mt-16">
+                <div
+                    class="p-6 md:p-10 bg-cyber-gray rounded-xl border border-gray-700 hover:border-cyber-blue transition-colors">
+                    <h4 class="text-cyber-blue font-bold text-xl md:text-2xl mb-2 md:mb-4">Acessível</h4>
+                    <p class="text-sm md:text-lg text-gray-500">Gratuito e Open Source</p>
+                </div>
+                <div
+                    class="p-6 md:p-10 bg-cyber-gray rounded-xl border border-gray-700 hover:border-cyber-green transition-colors">
+                    <h4 class="text-cyber-green font-bold text-xl md:text-2xl mb-2 md:mb-4">Prático</h4>
+                    <p class="text-sm md:text-lg text-gray-500">Instalação em segundos</p>
+                </div>
+                <div
+                    class="p-6 md:p-10 bg-cyber-gray rounded-xl border border-gray-700 hover:border-purple-400 transition-colors">
+                    <h4 class="text-purple-400 font-bold text-xl md:text-2xl mb-2 md:mb-4">Moderno</h4>
+                    <p class="text-sm md:text-lg text-gray-500">Arquitetura atual de SW</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide w-full h-full min-h-0 flex flex-col items-center justify-center text-center px-4"
+            data-id="17">
+            <h1 class="text-[8rem] md:text-[12rem] font-bold text-white/10 mb-4 md:mb-8 select-none">?</h1>
+            <h2 class="text-4xl md:text-6xl font-bold text-cyber-green mb-8 md:mb-16 -mt-20 md:-mt-32 z-10">Dúvidas?
+            </h2>
+
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 justify-center z-10 w-full md:w-auto">
+                <a href="https://github.com/ErickG123/devkit_forense" target="_blank"
+                    class="flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors border border-gray-600">
+                    <i class="fa-brands fa-github text-xl md:text-2xl"></i>
+                    <span class="text-lg md:text-xl">github.com/ErickG123</span>
+                </a>
+                <a href="#"
+                    class="flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors border border-gray-600">
+                    <i class="fa-solid fa-envelope text-xl md:text-2xl"></i>
+                    <span class="text-lg md:text-xl">erick.alves@example.com</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer
+        class="fixed bottom-0 w-full p-2 md:p-4 flex justify-between items-center text-[10px] md:text-xs text-gray-600 bg-cyber-black z-40 border-t border-gray-900">
+        <div>ForenseLab v1.0 • TCC Engenharia de Computação 2025</div>
+        <div class="hidden md:block">Faculdade Gran Tietê</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
