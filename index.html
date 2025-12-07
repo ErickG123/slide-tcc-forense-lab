@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +44,7 @@
         }
     </script>
 </head>
+
 <body
     class="bg-cyber-black text-white font-sans overflow-hidden h-screen w-screen selection:bg-cyber-green selection:text-black">
 
@@ -415,7 +417,7 @@
                         <i class="fa-solid fa-globe text-2xl md:text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">browser_forensics
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">Browser
                         </h3>
                         <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
                             Analisa artefatos de navegadores baseados em Chromium e Firefox (Histórico, Downloads,
@@ -430,7 +432,7 @@
                         <i class="fa-solid fa-network-wired text-2xl md:text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">network_recon</h3>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">Network</h3>
                         <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
                             Realiza varreduras ativas e passivas na rede (Port Scan, Discovery, Service ID).
                         </p>
@@ -443,7 +445,7 @@
                         <i class="fa-solid fa-envelope text-2xl md:text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">mail_analyzer</h3>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3 font-mono">Mail</h3>
                         <p class="text-gray-400 text-sm md:text-lg leading-relaxed">
                             Processa e-mails para identificar origem e analisar metadados (SPF, DKIM, IP Origem).
                         </p>
@@ -456,19 +458,26 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 border-l-8 border-yellow-500 pl-6 md:pl-8">
                 Funções por Módulo
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
                 <div class="bg-cyber-gray p-6 rounded-xl border border-blue-500/30">
                     <div class="flex items-center gap-3 mb-4">
                         <i class="fa-solid fa-globe text-blue-400"></i>
                         <h3 class="text-xl font-bold text-blue-400 font-mono">browser</h3>
                     </div>
                     <ul class="space-y-4 font-mono text-sm text-gray-300">
-                        <li><span class="text-green-400 font-bold block">get_history</span>Extrai URLs visitadas e
-                            timestamps.</li>
-                        <li><span class="text-green-400 font-bold block">get_downloads</span>Lista histórico de arquivos
-                            baixados.</li>
-                        <li><span class="text-green-400 font-bold block">get_cookies</span>Extrai cookies de sessão.
-                        </li>
+                        <li><span class="text-green-400 font-bold block">fingerprint</span>Detecta SO e serviços.</li>
+                        <li><span class="text-green-400 font-bold block">logins</span> Extração de credenciais
+                            armazenadas no Chrome e Edge.
+                        <li><span class="text-green-400 font-bold block">favscreen</span> Captura e organiza screenshots
+                            de sites favoritos ou acessados.
+                        <li><span class="text-green-400 font-bold block">words</span> Identifica palavras mais comuns em
+                            histórico de navegação e downloads.
+                        <li><span class="text-green-400 font-bold block">history</span> Coleta histórico de navegação de
+                            diferentes browsers.
+                        <li><span class="text-green-400 font-bold block">patterns</span> Identifica padrões suspeitos em
+                            histórico de navegação ou downloads.
+                        <li><span class="text-green-400 font-bold block">downloads</span> Lista arquivos baixados pelos
+                            usuários.
                     </ul>
                 </div>
                 <div class="bg-cyber-gray p-6 rounded-xl border border-purple-500/30">
@@ -477,11 +486,26 @@
                         <h3 class="text-xl font-bold text-purple-400 font-mono">network</h3>
                     </div>
                     <ul class="space-y-4 font-mono text-sm text-gray-300">
-                        <li><span class="text-green-400 font-bold block">scan_ports</span>Verifica portas abertas em um
-                            alvo.</li>
-                        <li><span class="text-green-400 font-bold block">network_map</span>Identifica hosts ativos na
-                            rede local.</li>
-                        <li><span class="text-green-400 font-bold block">fingerprint</span>Detecta SO e serviços.</li>
+                        <li><span class="text-green-400 font-bold block">ipinfo</span> Consulta informações
+                            detalhadas sobre um endereço IP.</li>
+                        <li><span class="text-green-400 font-bold block">arpscan</span> Varre a rede para
+                            identificar dispositivos conectados via ARP.</li>
+                        <li><span class="text-green-400 font-bold block">dnscan</span> Realiza levantamento de
+                            informações de DNS de domínios e hosts.</li>
+                        <li><span class="text-green-400 font-bold block">snmpscan</span> Realiza varredura SNMP
+                            em dispositivos de rede.</li>
+                        <li><span class="text-green-400 font-bold block">smbscan</span> Verifica serviços SMB
+                            ativos em um host .</li>
+                        <li><span class="text-green-400 font-bold block">sweep</span> Verifica quais hosts estão
+                            ativos em uma faixa de IP.</li>
+                        <li><span class="text-green-400 font-bold block">traceroute</span> Traça o caminho
+                            percorrido por pacotes até um host alvo.</li>
+                        <li><span class="text-green-400 font-bold block">map</span> Gera mapa visual de hosts e
+                            conexões detectadas.</li>
+                        <li><span class="text-green-400 font-bold block">scan</span> Identifica portas abertas e
+                            serviços ativos em hosts.</li>
+                        <li><span class="text-green-400 font-bold block">fingerprinting</span> Identifica
+                            sistemas, serviços e versões na rede.</li>
                     </ul>
                 </div>
                 <div class="bg-cyber-gray p-6 rounded-xl border border-green-500/30">
@@ -490,11 +514,11 @@
                         <h3 class="text-xl font-bold text-green-400 font-mono">email</h3>
                     </div>
                     <ul class="space-y-4 font-mono text-sm text-gray-300">
-                        <li><span class="text-green-400 font-bold block">parse_header</span>Extrai metadados (From, To,
-                            IP).</li>
-                        <li><span class="text-green-400 font-bold block">analyze_auth</span>Valida registros SPF e DKIM.
+                        <li><span class="text-green-400 font-bold block">email_parser</span>Extrai e organiza
+                            informações de emails.
                         </li>
-                        <li><span class="text-green-400 font-bold block">extract_body</span>Separa o corpo da mensagem.
+                        <li><span class="text-green-400 font-bold block">header_analysis</span>Analisa cabeçalhos para
+                            identificar origem, roteamento e possíveis fraudes.
                         </li>
                     </ul>
                 </div>
@@ -505,7 +529,7 @@
             class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-4 md:px-16 items-center"
             data-id="10">
             <div class="flex flex-col justify-center h-full order-2 md:order-1">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Estrutura do Código</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8 border-l-8 border-cyber-white pl-6 md:pl-8">Estrutura do Código</h2>
                 <p class="text-gray-400 mb-6 md:mb-10 text-lg md:text-xl leading-relaxed">
                     O projeto segue o padrão <strong>Command Pattern</strong> utilizando Typer. Cada módulo é um
                     subcomando isolado.
@@ -830,7 +854,7 @@ app.<span class="text-yellow-300">add_typer</span>(network_app, name=<span class
             class="slide w-full h-full min-h-0 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4 md:px-16"
             data-id="17">
             <div class="flex flex-col justify-center h-full order-2 md:order-1">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12">DevOps & Ecossistema</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 border-l-8 border-cyber-blue pl-6 md:pl-8">DevOps & Ecossistema</h2>
                 <div class="space-y-6 md:space-y-10">
                     <div class="group">
                         <h3 class="text-xl md:text-3xl font-bold text-white flex items-center gap-4">
@@ -846,7 +870,7 @@ app.<span class="text-yellow-300">add_typer</span>(network_app, name=<span class
                                 alt="Tests Passed" class="h-6 md:h-10">
                         </div>
                     </div>
-            
+
                     <div class="group">
                         <h3 class="text-xl md:text-3xl font-bold text-white flex items-center gap-4">
                             <i class="fa-brands fa-python text-yellow-400"></i> PyPI Publication
@@ -953,4 +977,5 @@ app.<span class="text-yellow-300">add_typer</span>(network_app, name=<span class
 
     <script src="script.js"></script>
 </body>
+
 </html>
